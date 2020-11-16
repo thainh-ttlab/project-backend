@@ -21,8 +21,10 @@ public class UserService {
 //        List<User> results = Paging.getContent();
 //        List<User> results = userRepository.findByNameAndAddressAndEmailAndPhone(keyword, keyword, keyword, keyword, pageable);
 //        System.out.println(results);
-        List<User> results = userRepository.findAll();
-        return results;
+//        List<User> results = userRepository.findAll();
+        Page<User> Users = userRepository.getUserByName(keyword, pageable);
+        return Users.getContent();
+//        return results;
     }
 
     public Optional<User> findById(Long id) {
