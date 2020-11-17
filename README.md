@@ -2,7 +2,7 @@
 ```
 mvn clean spring-boot:run
 ```
-### Project run
+### Run Project
 ```
 mvn spring-boot:run
 ```
