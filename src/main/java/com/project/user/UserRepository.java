@@ -12,6 +12,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 //    Object getByName();
 
-    @Query(value = "select u from User u where u.name = ?1 ")
+    @Query(value = "select u from User u " +
+            "where u.name LIKE %?1% " +
+            "or u.address like %?1% " +
+            "or u.phone like %?1% " +
+            "or u.email like %?1%")
     Page<User> getUserByName(String name, Pageable pageable);
 }

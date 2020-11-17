@@ -6,8 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 
@@ -15,16 +14,18 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
 
-    public List<User> findAll(String keyword, Integer page, Integer limit) {
+    public Map<String, Object> createResponse(List<?> lst) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("items", lst);
+        response.put("totalItems", lst.size());
+        return response;
+    }
+
+    public Map<String, Object> findAll(String keyword, Integer page, Integer limit) {
         Pageable pageable = PageRequest.of(page, limit);
-//        Page<User> Paging = userRepository.findAll(pageable);
-//        List<User> results = Paging.getContent();
-//        List<User> results = userRepository.findByNameAndAddressAndEmailAndPhone(keyword, keyword, keyword, keyword, pageable);
-//        System.out.println(results);
-//        List<User> results = userRepository.findAll();
         Page<User> Users = userRepository.getUserByName(keyword, pageable);
-        return Users.getContent();
-//        return results;
+        List<User> results = Users.getContent();
+        return createResponse(results);
     }
 
     public Optional<User> findById(Long id) {
